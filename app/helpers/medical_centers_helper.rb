@@ -1,0 +1,2 @@
+module MedicalCentersHelper
+end

@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @worker.full_name %> (<%= @worker.worker_type.name %>)
+</h1>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @worker.phone_number %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @worker.email %>
+</p>
+
+<hr>
+<h3>Guardias</h3>
+<ul>
+  <% @worker.guards.each do |guard| %>
+  <li><%= guard.guard_date.strftime("%m/%d/%Y") %> - <%= guard.medical_center.name %> (<%= guard.medical_center.address %>)</li>
+  <% end %>
+</ul>
+
+<% if @worker.worker_type_id == 1 %>
+<hr>
+<h3>Turnos</h3>
+<ul>
+  <% @worker.appointments.each do |appointment| %>
+  <li><%= appointment.appointment_date.strftime("%m/%d/%Y HORA: %I:%M%p") %> - <%= appointment.medical_center.name %> (<%= appointment.medical_center.address %>)</li>
+  <% end %>
+</ul>
+<% end %>
+
+<hr>
+
+<h3>Centros con Guardias</h3>
+<% @worker.guards.group(:medical_center_id).each do |item| %>
+  <code>
+    <li>
+      <%= item.medical_center.name %>
+    </li>
+  </code>
+<% end %>
+
+<% if @worker.worker_type_id == 1 %>
+<hr>
+<h3>Centros con Turnos</h3>
+<% @worker.appointments.group(:medical_center_id).each do |item| %>
+  <code>
+    <li>
+      <%= item.medical_center.name %>
+    </li>
+  </code>
+<% end %>
+<% end %>
+
+<br>
+<%= link_to 'Edit', edit_worker_path(@worker) %> |
+<%= link_to 'Back', workers_path %>

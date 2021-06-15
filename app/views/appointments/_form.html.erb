@@ -1,0 +1,35 @@
+<%= form_with(model: appointment) do |form| %>
+  <% if appointment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+      <ul>
+        <% appointment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :appointment_date %>
+    <%= form.datetime_select :appointment_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :worker_id %>
+    <!-- Esto traería todos los trabajadores -->
+    <%#= form.collection_select :worker_id, Worker.all, :id, :full_name, class: 'form-control' %>
+    <!-- Esto trae solo los trabajadores de tipo médico -->
+    <%= form.collection_select :worker_id, Worker.where(worker_type_id: 1), :id, :full_name, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :medical_center_id %>
+    <%= form.collection_select :medical_center_id, MedicalCenter.all, :id, :name, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

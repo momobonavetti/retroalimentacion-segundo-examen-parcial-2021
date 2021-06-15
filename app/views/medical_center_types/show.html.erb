@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @medical_center_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @medical_center_type.description %>
+</p>
+
+<%= link_to 'Edit', edit_medical_center_type_path(@medical_center_type) %> |
+<%= link_to 'Back', medical_center_types_path %>
